@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: tricept-skillmatrix-db
+    environment:
+      POSTGRES_USER: tricept
+      POSTGRES_PASSWORD: development
+      POSTGRES_DB: skillmatrix
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tricept -d skillmatrix"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@tricept.de
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: tricept-skillmatrix-backend
+    env_file:
+      - ./backend/.env
+    environment:
+      - DATABASE_URL=postgresql://tricept:development@postgres:5432/skillmatrix?schema=public
+      - NODE_ENV=development
+      - PORT=4000
+      - CORS_ORIGIN=http://localhost:3000
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: tricept-skillmatrix-frontend
+    environment:
+      - VITE_API_BASE_URL=http://localhost:4000/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

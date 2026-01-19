@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir /b \"C:\\Users\\mmuth\\CascadeProjects\\windsurf-project\\backend\\src\\tests\\utils\")",
+      "Bash(dir /b \"C:\\Users\\mmuth\\CascadeProjects\\windsurf-project\\backend\\src\\scripts\")",
+      "Bash(dir /b \"C:\\Users\\mmuth\\CascadeProjects\\windsurf-project\\backend\\src\\utils\")",
+      "Bash(pnpm migrate:refs:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm test:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

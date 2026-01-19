@@ -1,0 +1,153 @@
+export type Skill = { name: string }
+export type SkillGroup = { title: string; skills: Skill[] }
+
+export const skillGroups: SkillGroup[] = [
+  {
+    title: 'Grundlagen Bankgeschäft',
+    skills: [
+      { name: 'Volkswirtschaftliche Rahmenbedingungen' },
+      { name: 'Rolle und Funktion von Banken in der Geldwirtschaft' },
+      { name: 'Besonderheiten von Finanzdienstleistungen' },
+      { name: 'Universal- vs. Trennbanksystem' },
+      { name: 'Aufbauorganisation und Kerngeschäftsfelder von Banken' },
+      { name: 'Das deutsche Bankwesen' },
+      { name: 'Marktanteile und Kennzahlen der Bankengruppen' },
+      { name: 'Nationale und internationale Wettbewerbssituation' },
+      { name: 'Aktuelle Herausforderungen von Banken' },
+    ],
+  },
+  {
+    title: 'Bankenaufsicht und Bankrecht',
+    skills: [
+      { name: 'Organisation und Aufgaben der Bankenaufsicht in Deutschland' },
+      { name: 'Rechtsgrundlagen für Banken' },
+      { name: 'Solvabilitätsverordnung (Eigenkapitalausstattung, Basel II+III)' },
+      { name: 'Liquiditätsverordnung' },
+      { name: 'Mindestanforderungen des Risikomanagements (MaRisk)' },
+      { name: 'Meldewesen' },
+    ],
+  },
+  {
+    title: 'Transaction Banking (Zahlungsverkehr)',
+    skills: [
+      { name: 'Konto und Grundlagen der Kontoführung' },
+      { name: 'Organisation und Instrumente des Zahlungsverkehrs' },
+    ],
+  },
+  {
+    title: 'Retail Banking',
+    skills: [
+      { name: 'Abgrenzung von Retail- und Private Banking' },
+      { name: 'Einlagengeschäft' },
+      { name: 'Grundsätze der Anlageberatung und standardisiertes Wertpapiergeschäft' },
+      { name: 'Standardisiertes Kreditgeschäft' },
+    ],
+  },
+  {
+    title: 'Private Banking',
+    skills: [
+      { name: 'Besondere Anlageklassen (Immobilien, Rohstoffe, Währungen)' },
+      { name: 'Beteiligungen (Private Equity, Schiffe, erneuerbare Energien)' },
+      { name: 'Derivate und strukturierte Produkte' },
+      { name: 'Vermögensverwaltung' },
+    ],
+  },
+  {
+    title: 'Corporate Banking',
+    skills: [
+      { name: 'Segmentierung von Firmenkunden und Finanzierungsarten' },
+      { name: 'Kreditprüfung und Kreditrating' },
+      { name: 'Kreditfinanzierung' },
+      { name: 'Kreditsicherheiten' },
+      { name: 'Abwicklung notleidender Kredite und Unternehmensinsolvenz' },
+      { name: 'Auslandsgeschäft für Firmenkunden' },
+    ],
+  },
+  {
+    title: 'Investmentbanking',
+    skills: [
+      { name: 'Funktionen des Investmentbanking' },
+      { name: 'Emissionsgeschäft (Equity / Debt)' },
+      { name: 'Mergers and Acquisitions' },
+      { name: 'Corporate Finance' },
+      { name: 'Sales und Eigenhandel' },
+    ],
+  },
+  {
+    title: 'Grundlagen Risikomanagement',
+    skills: [
+      { name: 'Risikobegriff und Möglichkeiten der Risikomessung' },
+      { name: 'Phasenschema des Risikomanagements' },
+      { name: 'Systematisierung von banktypischen Risiken' },
+      { name: 'Adressrisiko' },
+      { name: 'Marktrisiko' },
+      { name: 'Liquiditätsrisiko' },
+      { name: 'Operationelles Risiko' },
+      { name: 'Reputations- und strategisches Risiko' },
+    ],
+  },
+  {
+    title: 'Scrum Theorie',
+    skills: [
+      { name: 'Agiles Manifest' },
+      { name: 'Agile Werte' },
+      { name: 'Theorie von Scrum: Überblick, Artefakte, Ereignisse' },
+      { name: 'Reporting in agilen / hybriden Projekten' },
+      { name: 'Agilität in Projekten' },
+      { name: 'Story-Map erstellen' },
+      { name: 'Planning-Poker organisieren / moderieren' },
+      { name: 'Sprint organisieren und durchführen' },
+      { name: 'Sprint-Planning moderieren' },
+      { name: 'Daily-Scrum moderieren' },
+      { name: 'Sprint-Review durchführen' },
+      { name: 'Sprint-Retrospektive moderieren' },
+      { name: 'Product-/Sprint-Backlog pflegen' },
+      { name: 'Scrum mit JIRA anwenden' },
+      { name: 'Scrum-Master: Arbeiten als Scrum-Master' },
+      { name: 'Scrum-Master: Coaching des Teams' },
+      { name: 'Product Owner: Anforderungen managen' },
+    ],
+  },
+  {
+    title: 'Softskills',
+    skills: [
+      { name: 'Moderation' },
+      { name: 'Präsentation' },
+      { name: 'Konfliktmanagement' },
+      { name: 'Graphical Facilitation' },
+      { name: 'JIRA Grundkenntnisse' },
+      { name: 'Teamarbeit' },
+      { name: 'Kommunikation' },
+      { name: 'Feedback geben und empfangen' },
+      { name: 'Zeitmanagement' },
+      { name: 'Selbstorganisation' },
+    ],
+  },
+  {
+    title: 'Testtheorie',
+    skills: [
+      { name: 'Testzieldefinition' },
+      { name: 'Standardisierung' },
+      { name: 'Teststufen nach Vorgehensmodell' },
+      { name: 'Testphasen' },
+      { name: 'Testplanung' },
+      { name: 'Testvorbereitung' },
+      { name: 'Testspezifikation' },
+      { name: 'Testdurchführung' },
+      { name: 'Testabschluss' },
+      { name: 'Testdokumentation' },
+      { name: 'Fehlermanagement' },
+      { name: 'Defect Lifecycle' },
+    ],
+  },
+  {
+    title: 'Testtools',
+    skills: [
+      { name: 'JIRA' },
+      { name: 'HPQC / ALM' },
+      { name: 'Testautomatisierung (Selenium, Cypress, etc.)' },
+      { name: 'JIRA X-Ray' },
+      { name: 'Testdatenmanagement' },
+    ],
+  },
+]

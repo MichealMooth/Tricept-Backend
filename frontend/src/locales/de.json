@@ -1,0 +1,51 @@
+{
+  "nav": {
+    "admin": "Admin",
+    "skillsManage": "Skills verwalten",
+    "employeesManage": "Mitarbeiter verwalten",
+    "strategicGoals": "Strategische Ziele",
+    "referenceProjects": "Referenzen (Admin)",
+    "capacities": "Kapazitaeten (Admin)",
+    "database": "Datenbank (Admin)",
+    "mySkills": "Meine Skills",
+    "selfAssessment": "Selbsteinschaetzung",
+    "history": "Historie",
+    "assess": "Bewerten",
+    "matrix": "Matrix",
+    "shortProfile": "Kurzprofil",
+    "referenceProjectsUser": "Referenz Projekte",
+    "strategicGoalsUser": "Strategische Ziele",
+    "capacity": "Kapazitaet",
+    "capacityOverview": "Uebersicht",
+    "home": "Home",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "common": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Loeschen",
+    "edit": "Bearbeiten",
+    "create": "Erstellen",
+    "search": "Suchen",
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolgreich",
+    "notFound": "Nicht gefunden",
+    "actions": "Aktionen"
+  },
+  "auth": {
+    "email": "E-Mail",
+    "password": "Passwort",
+    "loginButton": "Anmelden",
+    "logoutButton": "Abmelden",
+    "unauthorized": "Nicht autorisiert",
+    "forbidden": "Zugriff verweigert"
+  },
+  "validation": {
+    "required": "Pflichtfeld",
+    "minLength": "Mindestens {{min}} Zeichen erforderlich",
+    "maxLength": "Maximal {{max}} Zeichen erlaubt",
+    "invalidEmail": "Ungueltige E-Mail-Adresse"
+  }
+}

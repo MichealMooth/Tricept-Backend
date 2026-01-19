@@ -1,0 +1,625 @@
+{
+  "items": [
+    {
+      "id": "id-t7v5k6f5mjcx0y7g",
+      "created_at": "2025-12-19T13:39:00.268Z",
+      "updated_at": "2025-12-19T13:39:00.268Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "contact_person": "Max Mustermann",
+      "approved": true,
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-itrvtrqdmjcx0x3i",
+      "created_at": "2025-12-19T13:38:58.830Z",
+      "updated_at": "2025-12-19T13:38:58.830Z",
+      "person": "Integration Tester",
+      "project_name": "E2E API Test integration_1766151531145_475704",
+      "customer": "E2E Customer",
+      "project_description": "First sentence. Second sentence. Third sentence.",
+      "role": "Business-Analyst",
+      "activity_description": "End-to-end testing activities",
+      "duration_from": "2024-03",
+      "duration_to": "2024-09",
+      "contact_person": "E2E Contact",
+      "approved": true,
+      "topics": [
+        "Digitale Transformation",
+        "Prozessoptimierung"
+      ]
+    },
+    {
+      "id": "id-p4pz453xmjcwrjaz",
+      "created_at": "2025-12-19T13:31:41.051Z",
+      "updated_at": "2025-12-19T13:31:41.051Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "contact_person": "Max Mustermann",
+      "approved": true,
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-lao36hzwmjcwri68",
+      "created_at": "2025-12-19T13:31:39.584Z",
+      "updated_at": "2025-12-19T13:31:39.584Z",
+      "person": "Integration Tester",
+      "project_name": "E2E API Test integration_1766151092286_144799",
+      "customer": "E2E Customer",
+      "project_description": "First sentence. Second sentence. Third sentence.",
+      "role": "Business-Analyst",
+      "activity_description": "End-to-end testing activities",
+      "duration_from": "2024-03",
+      "duration_to": "2024-09",
+      "contact_person": "E2E Contact",
+      "approved": true,
+      "topics": [
+        "Digitale Transformation",
+        "Prozessoptimierung"
+      ]
+    },
+    {
+      "id": "id-at898u8lmjcwiaqx",
+      "created_at": "2025-12-19T13:24:30.057Z",
+      "updated_at": "2025-12-19T13:24:30.057Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "contact_person": "Max Mustermann",
+      "approved": true,
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-ffcdfp9umjcwi95a",
+      "created_at": "2025-12-19T13:24:27.982Z",
+      "updated_at": "2025-12-19T13:24:27.982Z",
+      "person": "Integration Tester",
+      "project_name": "E2E API Test integration_1766150660445_431910",
+      "customer": "E2E Customer",
+      "project_description": "First sentence. Second sentence. Third sentence.",
+      "role": "Business-Analyst",
+      "activity_description": "End-to-end testing activities",
+      "duration_from": "2024-03",
+      "duration_to": "2024-09",
+      "contact_person": "E2E Contact",
+      "approved": true,
+      "topics": [
+        "Digitale Transformation",
+        "Prozessoptimierung"
+      ]
+    },
+    {
+      "id": "id-wxvyurfmmjcwhm1z",
+      "created_at": "2025-12-19T13:23:58.055Z",
+      "updated_at": "2025-12-19T13:23:58.055Z",
+      "person": "Integration Tester",
+      "project_name": "E2E API Test integration_1766150630707_704005",
+      "customer": "E2E Customer",
+      "project_description": "First sentence. Second sentence. Third sentence.",
+      "role": "Business-Analyst",
+      "activity_description": "End-to-end testing activities",
+      "duration_from": "2024-03",
+      "duration_to": "2024-09",
+      "contact_person": "E2E Contact",
+      "approved": true,
+      "topics": [
+        "Digitale Transformation",
+        "Prozessoptimierung"
+      ]
+    },
+    {
+      "id": "id-fetspiufmjcnfjni",
+      "created_at": "2025-12-19T09:10:25.085Z",
+      "updated_at": "2025-12-19T09:10:25.085Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "contact_person": "Max Mustermann",
+      "approved": true,
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-cw4anws9mjcnfa6f",
+      "created_at": "2025-12-19T09:10:12.807Z",
+      "updated_at": "2025-12-19T09:10:12.807Z",
+      "person": "Integration Tester",
+      "project_name": "E2E API Test integration_1766135403087_496319",
+      "customer": "E2E Customer",
+      "project_description": "First sentence. Second sentence. Third sentence.",
+      "role": "Business-Analyst",
+      "activity_description": "End-to-end testing activities",
+      "duration_from": "2024-03",
+      "duration_to": "2024-09",
+      "contact_person": "E2E Contact",
+      "approved": true,
+      "topics": [
+        "Digitale Transformation",
+        "Prozessoptimierung"
+      ]
+    },
+    {
+      "id": "id-go5zrhw3mjcm1byn",
+      "created_at": "2025-12-19T08:31:22.318Z",
+      "updated_at": "2025-12-19T08:31:22.318Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "contact_person": "Max Mustermann",
+      "approved": true,
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-qd6bk78lmjcm12os",
+      "created_at": "2025-12-19T08:31:10.300Z",
+      "updated_at": "2025-12-19T08:31:10.300Z",
+      "person": "Integration Tester",
+      "project_name": "E2E API Test integration_1766133061297_104257",
+      "customer": "E2E Customer",
+      "project_description": "First sentence. Second sentence. Third sentence.",
+      "role": "Business-Analyst",
+      "activity_description": "End-to-end testing activities",
+      "duration_from": "2024-03",
+      "duration_to": "2024-09",
+      "contact_person": "E2E Contact",
+      "approved": true,
+      "topics": [
+        "Digitale Transformation",
+        "Prozessoptimierung"
+      ]
+    },
+    {
+      "id": "id-7sy55jfomh34qopl",
+      "created_at": "2025-10-23T07:57:51.897Z",
+      "updated_at": "2025-10-23T07:57:51.897Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-30pruts4mh34qo14",
+      "created_at": "2025-10-23T07:57:51.016Z",
+      "updated_at": "2025-10-23T07:57:51.016Z",
+      "person": "Bob",
+      "project_name": "Beta",
+      "customer": "Globex",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "PMO",
+      "activity_description": "PM",
+      "duration_from": "01/2023",
+      "duration_to": "06/2023",
+      "topics": [
+        "Cut Over"
+      ]
+    },
+    {
+      "id": "id-89pk8nevmh31z8ux",
+      "created_at": "2025-10-23T06:40:32.409Z",
+      "updated_at": "2025-10-23T06:40:32.409Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-aqemq2fcmh31z8en",
+      "created_at": "2025-10-23T06:40:31.823Z",
+      "updated_at": "2025-10-23T06:40:31.823Z",
+      "person": "Bob",
+      "project_name": "Beta",
+      "customer": "Globex",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "PMO",
+      "activity_description": "PM",
+      "duration_from": "01/2023",
+      "duration_to": "06/2023",
+      "topics": [
+        "Cut Over"
+      ]
+    },
+    {
+      "id": "id-4qlx2qe9mh31tmlv",
+      "created_at": "2025-10-23T06:36:10.291Z",
+      "updated_at": "2025-10-23T06:36:10.291Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-z6sy52e1mh31tm0e",
+      "created_at": "2025-10-23T06:36:09.518Z",
+      "updated_at": "2025-10-23T06:36:09.518Z",
+      "person": "Bob",
+      "project_name": "Beta",
+      "customer": "Globex",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "PMO",
+      "activity_description": "PM",
+      "duration_from": "01/2023",
+      "duration_to": "06/2023",
+      "topics": [
+        "Cut Over"
+      ]
+    },
+    {
+      "id": "id-6q1rqrcjmh31hn6c",
+      "created_at": "2025-10-23T06:26:51.156Z",
+      "updated_at": "2025-10-23T06:26:51.156Z",
+      "person": "Bob",
+      "project_name": "Beta",
+      "customer": "Globex",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "PMO",
+      "activity_description": "PM",
+      "duration_from": "01/2023",
+      "duration_to": "06/2023",
+      "topics": [
+        "Cut Over"
+      ]
+    },
+    {
+      "id": "id-8ttifzwimh31hn5x",
+      "created_at": "2025-10-23T06:26:51.141Z",
+      "updated_at": "2025-10-23T06:26:51.141Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-yp6j69tnmh317nin",
+      "created_at": "2025-10-23T06:19:05.039Z",
+      "updated_at": "2025-10-23T06:19:05.039Z",
+      "person": "Bob",
+      "project_name": "Beta",
+      "customer": "Globex",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "PMO",
+      "activity_description": "PM",
+      "duration_from": "01/2023",
+      "duration_to": "06/2023",
+      "topics": [
+        "Cut Over"
+      ]
+    },
+    {
+      "id": "id-nrbnkar8mh317nhj",
+      "created_at": "2025-10-23T06:19:04.999Z",
+      "updated_at": "2025-10-23T06:19:04.999Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-at9xaedzmh23ovri",
+      "created_at": "2025-10-22T14:40:41.934Z",
+      "updated_at": "2025-10-22T14:40:41.934Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-7wbebrbomh23ovq8",
+      "created_at": "2025-10-22T14:40:41.888Z",
+      "updated_at": "2025-10-22T14:40:41.888Z",
+      "person": "Bob",
+      "project_name": "Beta",
+      "customer": "Globex",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "PMO",
+      "activity_description": "PM",
+      "duration_from": "01/2023",
+      "duration_to": "06/2023",
+      "topics": [
+        "Cut Over"
+      ]
+    },
+    {
+      "id": "id-0x4wgqjgmh23frim",
+      "created_at": "2025-10-22T14:33:36.526Z",
+      "updated_at": "2025-10-22T14:33:36.526Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-lnqpsbbfmh23frhc",
+      "created_at": "2025-10-22T14:33:36.480Z",
+      "updated_at": "2025-10-22T14:33:36.480Z",
+      "person": "Bob",
+      "project_name": "Beta",
+      "customer": "Globex",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "PMO",
+      "activity_description": "PM",
+      "duration_from": "01/2023",
+      "duration_to": "06/2023",
+      "topics": [
+        "Cut Over"
+      ]
+    },
+    {
+      "id": "id-drrkhzh2mh22zh3b",
+      "created_at": "2025-10-22T14:20:56.519Z",
+      "updated_at": "2025-10-22T14:20:56.519Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-whfyfsw8mh22zh2t",
+      "created_at": "2025-10-22T14:20:56.501Z",
+      "updated_at": "2025-10-22T14:20:56.501Z",
+      "person": "Bob",
+      "project_name": "Beta",
+      "customer": "Globex",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "PMO",
+      "activity_description": "PM",
+      "duration_from": "01/2023",
+      "duration_to": "06/2023",
+      "topics": [
+        "Cut Over"
+      ]
+    },
+    {
+      "id": "id-zx9ow5bhmh22qjyu",
+      "created_at": "2025-10-22T14:14:00.342Z",
+      "updated_at": "2025-10-22T14:14:00.342Z",
+      "person": "Bob",
+      "project_name": "Beta",
+      "customer": "Globex",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "PMO",
+      "activity_description": "PM",
+      "duration_from": "01/2023",
+      "duration_to": "06/2023",
+      "topics": [
+        "Cut Over"
+      ]
+    },
+    {
+      "id": "id-3bulpj21mh22qjxw",
+      "created_at": "2025-10-22T14:14:00.308Z",
+      "updated_at": "2025-10-22T14:14:00.308Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-rx03dlvsmh22g9vl",
+      "created_at": "2025-10-22T14:06:00.705Z",
+      "updated_at": "2025-10-22T14:06:00.705Z",
+      "person": "Bob",
+      "project_name": "Beta",
+      "customer": "Globex",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "PMO",
+      "activity_description": "PM",
+      "duration_from": "01/2023",
+      "duration_to": "06/2023",
+      "topics": [
+        "Cut Over"
+      ]
+    },
+    {
+      "id": "id-pr7f29p9mh22g9vj",
+      "created_at": "2025-10-22T14:06:00.703Z",
+      "updated_at": "2025-10-22T14:06:00.703Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-v54xzvzjmh229gk0",
+      "created_at": "2025-10-22T14:00:42.768Z",
+      "updated_at": "2025-10-22T14:00:42.768Z",
+      "person": "Bob",
+      "project_name": "Beta",
+      "customer": "Globex",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "PMO",
+      "activity_description": "PM",
+      "duration_from": "01/2023",
+      "duration_to": "06/2023",
+      "topics": [
+        "Cut Over"
+      ]
+    },
+    {
+      "id": "id-m2unmcvhmh229gjt",
+      "created_at": "2025-10-22T14:00:42.761Z",
+      "updated_at": "2025-10-22T14:00:42.761Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-xe44poo5mh224giv",
+      "created_at": "2025-10-22T13:56:49.447Z",
+      "updated_at": "2025-10-22T13:56:49.447Z",
+      "person": "Bob",
+      "project_name": "Beta",
+      "customer": "Globex",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "PMO",
+      "activity_description": "PM",
+      "duration_from": "01/2023",
+      "duration_to": "06/2023",
+      "topics": [
+        "Cut Over"
+      ]
+    },
+    {
+      "id": "id-39uc383zmh224gew",
+      "created_at": "2025-10-22T13:56:49.304Z",
+      "updated_at": "2025-10-22T13:56:49.304Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-5duqjmy7mh21wj14",
+      "created_at": "2025-10-22T13:50:39.448Z",
+      "updated_at": "2025-10-22T13:50:39.448Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "topics": [
+        "Testmanagement"
+      ]
+    },
+    {
+      "id": "id-faqksm1pmh21wj0p",
+      "created_at": "2025-10-22T13:50:39.433Z",
+      "updated_at": "2025-10-22T13:50:39.433Z",
+      "person": "Alice",
+      "project_name": "Apollo",
+      "customer": "ACME",
+      "project_description": "Satz eins. Satz zwei. Satz drei.",
+      "role": "Testmanager",
+      "activity_description": "Testing",
+      "duration_from": "01/2022",
+      "duration_to": "12/2022",
+      "topics": [
+        "Testmanagement",
+        "Migration"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "errors": {
+    "unauthorized": "Nicht autorisiert",
+    "forbidden": "Zugriff verweigert",
+    "notFound": "Ressource nicht gefunden",
+    "badRequest": "Ungueltige Anfrage",
+    "internalError": "Interner Serverfehler",
+    "validationError": "Validierungsfehler"
+  },
+  "auth": {
+    "invalidCredentials": "Ungueltige Anmeldedaten",
+    "sessionExpired": "Sitzung abgelaufen",
+    "logoutSuccess": "Erfolgreich abgemeldet",
+    "loginRequired": "Anmeldung erforderlich"
+  },
+  "validation": {
+    "required": "Pflichtfeld",
+    "minLength": "Mindestens {{min}} Zeichen erforderlich",
+    "maxLength": "Maximal {{max}} Zeichen erlaubt",
+    "invalidEmail": "Ungueltige E-Mail-Adresse",
+    "invalidUuid": "Ungueltige ID",
+    "outOfRange": "Wert ausserhalb des gueltigen Bereichs"
+  },
+  "assessment": {
+    "ratingOutOfRange": "Bewertung muss zwischen 1 und 10 liegen",
+    "selfAssessmentOnly": "Selbsteinschaetzung kann nur vom Mitarbeiter selbst erstellt werden"
+  },
+  "strategicGoals": {
+    "ratingOutOfRange": "Bewertung muss zwischen 1 und 5 liegen",
+    "invalidPeriod": "Ungueltiger Zeitraum (Jahr/Monat)"
+  },
+  "referenceProjects": {
+    "descriptionSentences": "Projektbeschreibung muss 3-5 Saetze enthalten",
+    "topicsLimit": "Maximal 6 Themenbereiche erlaubt",
+    "roleNotFound": "Rolle nicht gefunden",
+    "topicsNotFound": "Themenbereiche nicht gefunden"
+  }
+}

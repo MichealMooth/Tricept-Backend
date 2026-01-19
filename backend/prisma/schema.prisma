@@ -1,0 +1,255 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model UserProfile {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  firstName        String
+  lastName         String
+  roleTitle        String
+  mainFocus        String
+  projectReferences String  @default("{}") // JSON string: { current, past }
+  experience       String
+  certifications   String
+  tools            String   @default("[]") // JSON string: string[]
+  methods          String   @default("[]") // JSON string: string[]
+  softSkills       String   @default("[]") // JSON string: string[]
+  education        String
+  profileImageUrl  String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  user Employee @relation(fields: [userId], references: [id])
+}
+
+
+model StrategicGoal {
+  id           String   @id @default(uuid())
+  key          String   @unique // e.g., SG-2025-01
+  title        String
+  description  String?
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  ratings StrategicGoalRating[]
+}
+
+model StrategicGoalRating {
+  id        String   @id @default(uuid())
+  goalId    String
+  userId    String
+  year      Int
+  month     Int // 1-12
+  rating    Int      // 1..5 (1=rot, 2=gelb-rot, 3=gelb, 4=gelb-gruen, 5=gruen)
+  comment   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  goal StrategicGoal @relation(fields: [goalId], references: [id])
+  user Employee      @relation(fields: [userId], references: [id])
+
+  @@unique([goalId, userId, year, month])
+  @@index([year, month])
+}
+
+model UserCapacity {
+  id            String   @id @default(uuid())
+  userId        String
+  year          Int
+  month         Int // 1-12
+  allocations   String  @default("[]") // JSON string: [{ project_name?: string, percent: number }]
+  totalPercent  Int     // 0-100
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  user Employee @relation(fields: [userId], references: [id])
+
+  @@unique([userId, year, month])
+  @@index([year])
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  role         String?
+  department   String   @default("Consulting")
+  isActive     Boolean  @default(true)
+  isAdmin      Boolean  @default(false)
+  hireDate     DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  selfAssessments   SkillAssessment[] @relation("EmployeeSelfAssessments")
+  givenAssessments  SkillAssessment[] @relation("EmployeeGivenAssessments")
+  capacities        UserCapacity[]
+  strategicRatings  StrategicGoalRating[]
+  profile           UserProfile?
+  referenceProjects ReferenceProjectEmployee[]
+}
+
+model Skill {
+  id           String   @id @default(uuid())
+  name         String
+  categoryId   String
+  description  String?
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  // Relations
+  category    SkillCategory   @relation(fields: [categoryId], references: [id])
+  assessments SkillAssessment[]
+
+  @@index([categoryId])
+}
+
+model SkillCategory {
+  id            String   @id @default(uuid())
+  name          String   @unique
+  parentId      String?
+  description   String?
+  displayOrder  Int      @default(0)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+
+  // Relations
+  parent   SkillCategory? @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children SkillCategory[] @relation("CategoryHierarchy")
+  skills   Skill[]
+
+  @@index([parentId])
+}
+
+model SkillAssessment {
+  id             String          @id @default(uuid())
+  employeeId     String
+  skillId        String
+  assessmentType String
+  assessorId     String?
+  rating         Int
+  comment        String?
+  validFrom      DateTime        @default(now())
+  validTo        DateTime?
+  createdAt      DateTime        @default(now())
+
+  // Relations
+  employee Employee @relation("EmployeeSelfAssessments", fields: [employeeId], references: [id])
+  assessor Employee? @relation("EmployeeGivenAssessments", fields: [assessorId], references: [id])
+  skill    Skill     @relation(fields: [skillId], references: [id])
+
+  @@index([employeeId, validTo])
+  @@index([skillId, validTo])
+}
+
+// ============================================
+// Reference Projects Models (Task Group 1)
+// ============================================
+
+// Role lookup table for reference projects
+// Extensible via database (later Admin-UI)
+model Role {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  referenceProjects ReferenceProject[]
+}
+
+// Topic lookup table for reference projects
+// Extensible via database (later Admin-UI)
+model Topic {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  referenceProjects ReferenceProjectTopic[]
+}
+
+// Main ReferenceProject model
+// Migrated from file-based store (backend/var/reference-projects.json)
+model ReferenceProject {
+  id                        String   @id @default(uuid())
+  project_name              String
+  customer                  String
+  project_description       String
+  activity_description      String
+  duration_from             String   // Format: YYYY-MM or similar
+  duration_to               String   // Format: YYYY-MM or similar
+  contact_person            String
+  approved                  Boolean  @default(false)
+
+  // New optional fields for enhanced schema
+  short_teaser              String?  // 100-150 chars, validated at service layer
+  short_project_description String?  // Longer text, no length limit
+
+  // Fallback field for unmatched employee references during migration
+  person_legacy             String?
+
+  // Foreign key to Role lookup table
+  roleId                    String
+
+  // Timestamps
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+
+  // Relations
+  role      Role                       @relation(fields: [roleId], references: [id])
+  topics    ReferenceProjectTopic[]
+  employees ReferenceProjectEmployee[]
+
+  @@index([roleId])
+  @@index([approved])
+}
+
+// Junction table for Many-to-Many: ReferenceProject <-> Topic
+// Business rule: max 6 topics per project (validated at service layer)
+model ReferenceProjectTopic {
+  referenceProjectId String
+  topicId            String
+
+  // Relations
+  referenceProject ReferenceProject @relation(fields: [referenceProjectId], references: [id], onDelete: Cascade)
+  topic            Topic            @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@id([referenceProjectId, topicId])
+  @@index([topicId])
+}
+
+// Junction table for Many-to-Many: ReferenceProject <-> Employee
+// Minimal structure: FK fields only (no role, involvement %, dates)
+// Future extension possible but out of scope for this migration
+model ReferenceProjectEmployee {
+  referenceProjectId String
+  employeeId         String
+
+  // Relations
+  referenceProject ReferenceProject @relation(fields: [referenceProjectId], references: [id], onDelete: Cascade)
+  employee         Employee         @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@id([referenceProjectId, employeeId])
+  @@index([employeeId])
+}
