@@ -1,4 +1,12 @@
+/**
+ * Employee Service
+ *
+ * API service for Employee management.
+ * Task Group 4: Extended to include team memberships.
+ */
+
 import { api } from './api'
+import type { TeamRole } from '@/types/team'
 
 async function getCsrfToken(): Promise<string> {
   const res = await api.get('/auth/csrf')
@@ -18,8 +26,53 @@ export type Employee = {
   createdAt: string
 }
 
+/**
+ * Employee with team memberships.
+ * Task Group 4: Extended employee type for team column display.
+ */
+export type EmployeeWithTeams = Employee & {
+  teams: Array<{ id: string; name: string }>
+}
+
+/**
+ * Employee team membership info.
+ * Task Group 4: Used in EmployeeForm for team assignment.
+ */
+export type EmployeeTeam = {
+  teamId: string
+  teamName: string
+  role: TeamRole
+  membershipId: string
+}
+
 export async function listEmployees(search?: string) {
   const res = await api.get<Employee[]>('/employees', { params: { search } })
+  return res.data
+}
+
+/**
+ * List employees with their team memberships.
+ * Task Group 4: Extended listing for team column display.
+ *
+ * @param search - Optional search string
+ * @returns List of employees with team info
+ */
+export async function listEmployeesWithTeams(search?: string) {
+  const res = await api.get<EmployeeWithTeams[]>('/employees', {
+    params: { search, includeTeams: 'true' }
+  })
+  return res.data
+}
+
+/**
+ * Get teams for a specific employee.
+ * Task Group 4: Used in EmployeeForm for team assignment.
+ *
+ * @param employeeId - Employee ID
+ * @returns List of team memberships with role info
+ */
+export async function getEmployeeTeams(employeeId: string): Promise<EmployeeTeam[]> {
+  const res = await api.get<EmployeeTeam[]>(`/employees/${employeeId}/teams`)
   return res.data
 }
 

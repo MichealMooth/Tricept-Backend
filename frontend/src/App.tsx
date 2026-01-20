@@ -9,6 +9,8 @@ import EmployeeProfilePage from './pages/EmployeeProfilePage';
 import MatrixPage from './pages/MatrixPage';
 import AssessEmployeePage from './pages/AssessEmployeePage';
 import EmployeesPage from './pages/admin/EmployeesPage';
+import TeamsPage from './pages/admin/TeamsPage';
+import TeamDetailPage from './pages/admin/TeamDetailPage';
 import { NavBar } from './components/NavBar';
 import MyCapacityPage from './pages/MyCapacityPage';
 import CapacityAdminPage from './pages/admin/CapacityAdminPage';
@@ -19,6 +21,8 @@ import DatabaseBrowserPage from './pages/admin/DatabaseBrowserPage';
 import KurzprofilPage from './pages/KurzprofilPage';
 import ReferenzProjektePage from './pages/ReferenzProjektePage';
 import ReferenceProjectsAdminPage from './pages/admin/ReferenceProjectsAdminPage';
+import ModuleConfigPage from './pages/admin/ModuleConfigPage';
+import TeamModuleConfigPage from './pages/admin/TeamModuleConfigPage';
 
 function App() {
   return (
@@ -27,8 +31,8 @@ function App() {
         <div className="container mx-auto px-6 py-3 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 focus:outline-none">
             <img
-              src={(import.meta as any).env?.VITE_LOGO_URL || '/logo.png'}
-              alt="Tricept Consulting"
+              src="/tricept-logo.png"
+              alt="Tricept"
               className="h-8 w-auto object-contain block"
               loading="eager"
               decoding="async"
@@ -62,6 +66,22 @@ function App() {
             element={
               <AdminRoute>
                 <EmployeesPage />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/teams"
+            element={
+              <AdminRoute>
+                <TeamsPage />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/teams/:teamId"
+            element={
+              <AdminRoute>
+                <TeamDetailPage />
               </AdminRoute>
             }
           />
@@ -166,6 +186,30 @@ function App() {
             element={
               <AdminRoute>
                 <DatabaseBrowserPage />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/modules"
+            element={
+              <AdminRoute>
+                <ModuleConfigPage />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/modules/:moduleId"
+            element={
+              <AdminRoute>
+                <ModuleConfigPage />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/teams/:teamId/modules"
+            element={
+              <AdminRoute>
+                <TeamModuleConfigPage />
               </AdminRoute>
             }
           />

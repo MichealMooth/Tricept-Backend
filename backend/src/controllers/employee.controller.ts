@@ -4,6 +4,8 @@ import {
   archiveEmployee,
   createEmployee,
   listEmployees,
+  listEmployeesWithTeams,
+  getEmployeeTeams,
   updateEmployee,
 } from '@/services/employee.service';
 
@@ -34,8 +36,31 @@ const updateSchema = z.object({
 export async function getEmployees(req: Request, res: Response, next: NextFunction) {
   try {
     const search = typeof req.query.search === 'string' ? req.query.search : undefined;
+    const includeTeams = req.query.includeTeams === 'true';
+
+    if (includeTeams) {
+      const list = await listEmployeesWithTeams(search);
+      return res.json(list);
+    }
+
     const list = await listEmployees(search);
     return res.json(list);
+  } catch (err) {
+    return next(err);
+  }
+}
+
+/**
+ * Get teams for a specific employee.
+ * Task Group 4: Returns team memberships for an employee.
+ *
+ * GET /api/employees/:id/teams
+ */
+export async function getEmployeeTeamsHandler(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { id } = req.params;
+    const teams = await getEmployeeTeams(id);
+    return res.json(teams);
   } catch (err) {
     return next(err);
   }
@@ -45,6 +70,7 @@ export async function postEmployee(req: Request, res: Response, next: NextFuncti
   try {
     const data = createSchema.parse(req.body);
     const created = await createEmployee(data);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { passwordHash, ...safe } = created as any;
     return res.status(201).json(safe);
   } catch (err) {
@@ -58,7 +84,9 @@ export async function putEmployee(req: Request, res: Response, next: NextFunctio
   try {
     const { id } = req.params;
     const data = updateSchema.parse(req.body);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const updated = await updateEmployee(id, data as any);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { passwordHash, ...safe } = updated as any;
     return res.json(safe);
   } catch (err) {

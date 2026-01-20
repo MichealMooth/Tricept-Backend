@@ -39,8 +39,17 @@ model StrategicGoal {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
+  // Scope classification fields (Task Group 2)
+  // DataScope values: GLOBAL, TEAM, USER (validated at application layer)
+  scope        String   @default("GLOBAL") // DataScope: GLOBAL, TEAM, USER
+  teamGroupId  String?  // nullable: only set when scope=TEAM
+
   // Relations
-  ratings StrategicGoalRating[]
+  ratings   StrategicGoalRating[]
+  teamGroup TeamGroup?            @relation(fields: [teamGroupId], references: [id])
+
+  @@index([scope])
+  @@index([teamGroupId])
 }
 
 model StrategicGoalRating {
@@ -105,6 +114,7 @@ model Employee {
   strategicRatings  StrategicGoalRating[]
   profile           UserProfile?
   referenceProjects ReferenceProjectEmployee[]
+  teamMemberships   TeamMembership[]
 }
 
 model Skill {
@@ -252,4 +262,165 @@ model ReferenceProjectEmployee {
 
   @@id([referenceProjectId, employeeId])
   @@index([employeeId])
+}
+
+// ============================================
+// TeamGroup & Authorization Models
+// ============================================
+
+// TeamRole values (validated at application layer via Zod):
+// - OWNER: full rights including role/membership management within the TeamGroup
+// - ADMIN: manage team content, cannot manage memberships
+// - EDITOR: create/update team-scoped content
+// - VIEWER: read-only access to team content
+// - USER: basic rights on own data only
+// Note: SQLite does not support native enums, so we use String with application-level validation
+
+// DataScope values (validated at application layer via Zod):
+// - GLOBAL: readable by all authenticated users, writable by Global Admin only
+// - TEAM: visible to TeamGroup members only
+// - USER: owner-only access
+// Note: SQLite does not support native enums, so we use String with application-level validation
+
+// QuestionnaireStatus values (validated at application layer via Zod):
+// - DRAFT: questionnaire is being created/edited
+// - ACTIVE: questionnaire is live and can be filled out
+// - ARCHIVED: questionnaire is no longer active but preserved for history
+// Note: SQLite does not support native enums, so we use String with application-level validation
+
+// TeamGroup model for grouping users (department/team/project group)
+// A user can belong to multiple TeamGroups with different roles in each
+model TeamGroup {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?  // Audit: userId who created this record
+  updatedBy   String?  // Audit: userId who last updated this record
+
+  // Relations
+  memberships    TeamMembership[]
+  strategicGoals StrategicGoal[]
+  questionnaires Questionnaire[]
+  moduleConfigs  TeamModuleConfig[]
+
+  @@index([isActive])
+}
+
+// Junction table for Many-to-Many: Employee <-> TeamGroup with role
+// Roles are context-dependent: permissions apply only within the associated TeamGroup
+model TeamMembership {
+  id          String   @id @default(uuid())
+  employeeId  String
+  teamGroupId String
+  role        String   @default("USER") // TeamRole: OWNER, ADMIN, EDITOR, VIEWER, USER
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?  // Audit: userId who created this record
+  updatedBy   String?  // Audit: userId who last updated this record
+
+  // Relations
+  employee  Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  teamGroup TeamGroup @relation(fields: [teamGroupId], references: [id], onDelete: Cascade)
+
+  // Composite unique constraint: one membership per employee per team
+  @@unique([employeeId, teamGroupId])
+  @@index([employeeId])
+  @@index([teamGroupId])
+}
+
+// ============================================
+// Questionnaire Models (Task Group 2)
+// ============================================
+
+// Questionnaire model for structured data collection
+// Supports versioning via status field and version number
+// Scope follows same GLOBAL/TEAM pattern as StrategicGoals
+model Questionnaire {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  version     Int      @default(1)
+  status      String   @default("DRAFT") // QuestionnaireStatus: DRAFT, ACTIVE, ARCHIVED
+  scope       String   @default("GLOBAL") // DataScope: GLOBAL, TEAM, USER
+  teamGroupId String?  // nullable: only set when scope=TEAM
+  createdAt   DateTime @default(now())
+  createdBy   String?  // Audit: userId who created this record
+  updatedAt   DateTime @updatedAt
+  updatedBy   String?  // Audit: userId who last updated this record
+
+  // Relations
+  teamGroup TeamGroup? @relation(fields: [teamGroupId], references: [id])
+  questions Question[]
+
+  @@index([status])
+  @@index([scope])
+  @@index([teamGroupId])
+}
+
+// Question model for individual questions within a questionnaire
+// Uses JSON string pattern for options (like allocations in UserCapacity)
+model Question {
+  id              String   @id @default(uuid())
+  questionnaireId String
+  questionText    String
+  questionType    String   // e.g., TEXT, RATING, CHOICE, MULTI_CHOICE
+  displayOrder    Int      @default(0)
+  isRequired      Boolean  @default(false)
+  options         String   @default("[]") // JSON string: for CHOICE/MULTI_CHOICE types
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  questionnaire Questionnaire @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+
+  @@index([questionnaireId])
+  @@index([displayOrder])
+}
+
+// ============================================
+// Module Configuration Models
+// ============================================
+
+// TeamModuleConfig: Team-specific module configuration overrides
+// Stores which modules are enabled/disabled for each team and their scope override
+// Module definitions are code-based (modules.registry.ts); this only stores overrides
+model TeamModuleConfig {
+  id          String   @id @default(uuid())
+  teamGroupId String
+  moduleId    String   // References code-based module registry (e.g., 'strategic-goals')
+  isEnabled   Boolean  @default(true)
+  scope       String?  // Override scope (null = use module default); values: GLOBAL, TEAM, USER
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?  // Audit: userId who created this record
+  updatedBy   String?  // Audit: userId who last updated this record
+
+  // Relations
+  teamGroup TeamGroup @relation(fields: [teamGroupId], references: [id], onDelete: Cascade)
+
+  // Unique constraint: one config per team per module
+  @@unique([teamGroupId, moduleId])
+  @@index([teamGroupId])
+  @@index([moduleId])
+}
+
+// ModuleConfigAudit: Audit trail for module configuration changes
+// Separate table for compliance queries and historical analysis
+// No foreign keys to preserve audit history even if team/module deleted
+model ModuleConfigAudit {
+  id          String   @id @default(uuid())
+  teamGroupId String   // Team ID at time of change (not FK)
+  moduleId    String   // Module ID at time of change
+  action      String   // CREATE, UPDATE, DELETE
+  oldValues   String?  // JSON string of previous state
+  newValues   String?  // JSON string of new state
+  performedBy String   // User ID who made the change
+  performedAt DateTime @default(now())
+
+  @@index([teamGroupId])
+  @@index([moduleId])
+  @@index([performedAt])
 }

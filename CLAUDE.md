@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Tricept Skill Matrix Management System - An enterprise web application for managing employee skills with self-assessment, peer assessment, historical tracking, and gap analysis. Includes capacity planning, strategic goal tracking, and employee profile management.
+TriceptCore - An enterprise web application for managing employee skills with self-assessment, peer assessment, historical tracking, and gap analysis. Includes capacity planning, strategic goal tracking, and employee profile management.
 
 **Key Features:**
 - Skill assessments (self + peer) with 1-10 rating scale

@@ -1,6 +1,9 @@
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 
+// Import optional seeds
+import { seedTeamGroups, promoteTeamOwners } from './seeds/team-groups.seed'
+
 const prisma = new PrismaClient()
 
 /**
@@ -135,6 +138,21 @@ async function main() {
   // Seed Role and Topic lookup tables for Reference Projects
   await seedRoles()
   await seedTopics()
+
+  // Seed TeamGroups from departments (Task Group 6.5)
+  // This creates TeamGroups based on employee departments and adds employees to their teams
+  // Pass admin.id as the system user for audit trail
+  const seedTeams = process.env.SEED_TEAM_GROUPS !== 'false'
+  if (seedTeams) {
+    console.log('')
+    console.log('=== Seeding TeamGroups ===')
+    await seedTeamGroups(admin.id)
+    await promoteTeamOwners(admin.id)
+    console.log('=== TeamGroups seeding complete ===')
+    console.log('')
+  } else {
+    console.log('Skipping TeamGroups seeding (SEED_TEAM_GROUPS=false)')
+  }
 
   console.log('Seed completed:', { admin: admin.email, test: testUser.email })
 }

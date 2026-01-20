@@ -15,6 +15,8 @@ const rows = [
     'Beschreibung der Tätigkeit',
     'Laufzeit von',
     'Laufzeit bis',
+    'Ansprechpartner',
+    'Für Nutzung freigegeben',
     'Themenbereich 1',
   ],
   [
@@ -26,6 +28,8 @@ const rows = [
     'Testing',
     '01/2022',
     '12/2022',
+    'Max Mustermann',
+    'Ja',
     'Testmanagement',
   ],
 ]

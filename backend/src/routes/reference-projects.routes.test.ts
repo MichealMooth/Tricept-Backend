@@ -1,5 +1,6 @@
 import request from 'supertest'
 import http from 'http'
+import { execSync } from 'child_process'
 import app from '@/app'
 
 process.env.REFPROJ_DATA_DIR = './var-test-routes'
@@ -7,9 +8,18 @@ process.env.REFPROJ_DATA_DIR = './var-test-routes'
 describe('reference-projects routes', () => {
   let server: http.Server
 
-  beforeAll((done) => {
-    server = app.listen(0, () => done())
-  })
+  beforeAll(async () => {
+    // Seed the database to ensure Role and Topic lookup tables exist
+    // Pass environment variables to the child process
+    execSync('npx prisma db seed', {
+      stdio: 'pipe',
+      env: { ...process.env, DATABASE_URL: 'file:./test.db' },
+    })
+
+    await new Promise<void>((resolve) => {
+      server = app.listen(0, () => resolve())
+    })
+  }, 30000)
 
   afterAll((done) => {
     server.close(() => done())
@@ -28,6 +38,8 @@ describe('reference-projects routes', () => {
       activity_description: 'Testing',
       duration_from: '01/2022',
       duration_to: '12/2022',
+      contact_person: 'Max Mustermann',
+      approved: true,
       topics: ['Testmanagement', 'Migration'],
     }
 
@@ -40,6 +52,8 @@ describe('reference-projects routes', () => {
       activity_description: 'PM',
       duration_from: '01/2023',
       duration_to: '06/2023',
+      contact_person: 'Jane Doe',
+      approved: false,
       topics: ['Cut Over'],
     }
 

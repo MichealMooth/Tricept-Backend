@@ -1,4 +1,4 @@
-{{ ... }}
+# TriceptCore
 
 Enterprise Web-Applikation zur Verwaltung von Mitarbeiter-Skills mit Selbst- und Fremdeinschätzung, historischem Tracking und Gap-Analyse.
 
@@ -79,7 +79,7 @@ docker-compose up -d --build backend frontend
 ## Project Structure
 
 ```
-tricept-skill-matrix/
+TriceptCore/
 ├── frontend/           # React + Vite frontend application
 ├── backend/            # Express.js backend API (TypeScript)
 ├── docs/               # Project documentation

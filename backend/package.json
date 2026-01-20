@@ -1,7 +1,7 @@
 {
-  "name": "tricept-skillmatrix-backend",
+  "name": "triceptcore-backend",
   "version": "1.0.0",
-  "description": "Backend for Tricept Skill Matrix Management System",
+  "description": "Backend for TriceptCore Skill Matrix Management System",
   "main": "src/index.ts",
   "scripts": {
     "dev": "tsx watch -r tsconfig-paths/register src/index.ts",

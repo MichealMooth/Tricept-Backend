@@ -1,6 +1,7 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/hooks/useAuth'
 import { useState, useRef, useEffect } from 'react'
+import { useEffectiveModulesStore } from '@/stores/effective-modules.store'
 
 export function NavBar() {
   const { user, isAuthenticated, logout } = useAuth()
@@ -12,6 +13,15 @@ export function NavBar() {
   const [logoutHover, setLogoutHover] = useState(false)
   const [capacityOpen, setCapacityOpen] = useState(false)
   const capacityRef = useRef<HTMLDivElement>(null)
+
+  const { fetchModules, clearModules, isModuleAccessible, loaded } = useEffectiveModulesStore()
+
+  // Fetch effective modules when user is authenticated
+  useEffect(() => {
+    if (isAuthenticated && !loaded) {
+      fetchModules()
+    }
+  }, [isAuthenticated, loaded, fetchModules])
 
   useEffect(() => {
     const onDocClick = (e: MouseEvent) => {
@@ -26,7 +36,14 @@ export function NavBar() {
 
   const onLogout = async () => {
     await logout()
+    clearModules()
     navigate('/login')
+  }
+
+  // Helper to check module access (admins always have access, otherwise check store)
+  const hasModuleAccess = (moduleId: string) => {
+    if (user?.isAdmin) return true
+    return isModuleAccessible(moduleId)
   }
 
   return (
@@ -52,82 +69,96 @@ export function NavBar() {
                 <div className="absolute right-0 mt-2 w-56 bg-white text-primary_dark rounded-lg shadow-xl ring-1 ring-black/5 z-50 py-2" role="menu">
                   <Link className="block px-4 py-2 hover:bg-gray-50" to="/admin/skills" onClick={() => setAdminOpen(false)} role="menuitem">Skills verwalten</Link>
                   <Link className="block px-4 py-2 hover:bg-gray-50" to="/admin/employees" onClick={() => setAdminOpen(false)} role="menuitem">Mitarbeiter verwalten</Link>
+                  <Link className="block px-4 py-2 hover:bg-gray-50" to="/admin/teams" onClick={() => setAdminOpen(false)} role="menuitem">Teams verwalten</Link>
                   <Link className="block px-4 py-2 hover:bg-gray-50" to="/admin/strategic-goals" onClick={() => setAdminOpen(false)} role="menuitem">Strategische Ziele</Link>
                   <Link className="block px-4 py-2 hover:bg-gray-50" to="/admin/reference-projects" onClick={() => setAdminOpen(false)} role="menuitem">Referenzen (Admin)</Link>
                   <Link className="block px-4 py-2 hover:bg-gray-50" to="/admin/capacities" onClick={() => setAdminOpen(false)} role="menuitem">Kapazitäten (Admin)</Link>
+                  <Link className="block px-4 py-2 hover:bg-gray-50" to="/admin/modules" onClick={() => setAdminOpen(false)} role="menuitem">Module konfigurieren</Link>
                   <Link className="block px-4 py-2 hover:bg-gray-50" to="/admin/db" onClick={() => setAdminOpen(false)} role="menuitem">Datenbank (Admin)</Link>
                 </div>
               )}
             </div>
           )}
 
-          {/* Regular links for authenticated users */}
-          <div className="relative" ref={skillsRef}>
-            <button
-              className={`px-3 py-2 rounded-md text-off_white/90 hover:text-white hover:bg-white/10 inline-flex items-center gap-1 border-b-2 ${skillsOpen ? 'border-white/90 text-white' : 'border-transparent hover:border-white/60'} transition`}
-              onClick={() => setSkillsOpen((o) => !o)}
-              aria-haspopup="menu"
-              aria-expanded={skillsOpen}
+          {/* Skills dropdown - only show if skills module is accessible */}
+          {hasModuleAccess('skills') && (
+            <div className="relative" ref={skillsRef}>
+              <button
+                className={`px-3 py-2 rounded-md text-off_white/90 hover:text-white hover:bg-white/10 inline-flex items-center gap-1 border-b-2 ${skillsOpen ? 'border-white/90 text-white' : 'border-transparent hover:border-white/60'} transition`}
+                onClick={() => setSkillsOpen((o) => !o)}
+                aria-haspopup="menu"
+                aria-expanded={skillsOpen}
+              >
+                <span>Meine Skills</span>
+                <svg className={`h-3 w-3 motion-safe:transition-transform ${skillsOpen ? 'rotate-180' : ''} motion-reduce:transform-none`} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.23 7.21a.75.75 0 011.06.02L10 10.586l3.71-3.355a.75.75 0 111.02 1.1l-4.22 3.815a.75.75 0 01-1.02 0L5.21 8.33a.75.75 0 01.02-1.12z"/></svg>
+              </button>
+              {skillsOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-white text-primary_dark rounded-lg shadow-xl ring-1 ring-black/5 z-50 py-2" role="menu">
+                  <Link className="block px-4 py-2 hover:bg-gray-50" to="/my-skills?mode=form" onClick={() => setSkillsOpen(false)} role="menuitem">Selbsteinschätzung</Link>
+                  <Link className="block px-4 py-2 hover:bg-gray-50" to="/my-skills?mode=history" onClick={() => setSkillsOpen(false)} role="menuitem">Historie</Link>
+                  {hasModuleAccess('assessments') && (
+                    <Link className="block px-4 py-2 hover:bg-gray-50" to="/assess" onClick={() => setSkillsOpen(false)} role="menuitem">Bewerten</Link>
+                  )}
+                  <Link className="block px-4 py-2 hover:bg-gray-50" to="/matrix" onClick={() => setSkillsOpen(false)} role="menuitem">Matrix</Link>
+                </div>
+              )}
+            </div>
+          )}
+          {/* Kurzprofil link - only show if kurzprofil module is accessible */}
+          {hasModuleAccess('kurzprofil') && (
+            <NavLink
+              to="/kurzprofil"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded-md border-b-2 transition ${isActive ? 'text-white bg-white/10 border-white/90' : 'text-off_white/90 hover:text-white hover:bg-white/10 border-transparent hover:border-white/60'}`
+              }
             >
-              <span>Meine Skills</span>
-              <svg className={`h-3 w-3 motion-safe:transition-transform ${skillsOpen ? 'rotate-180' : ''} motion-reduce:transform-none`} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.23 7.21a.75.75 0 011.06.02L10 10.586l3.71-3.355a.75.75 0 111.02 1.1l-4.22 3.815a.75.75 0 01-1.02 0L5.21 8.33a.75.75 0 01.02-1.12z"/></svg>
-            </button>
-            {skillsOpen && (
-              <div className="absolute right-0 mt-2 w-56 bg-white text-primary_dark rounded-lg shadow-xl ring-1 ring-black/5 z-50 py-2" role="menu">
-                <Link className="block px-4 py-2 hover:bg-gray-50" to="/my-skills?mode=form" onClick={() => setSkillsOpen(false)} role="menuitem">Selbsteinschätzung</Link>
-                <Link className="block px-4 py-2 hover:bg-gray-50" to="/my-skills?mode=history" onClick={() => setSkillsOpen(false)} role="menuitem">Historie</Link>
-                <Link className="block px-4 py-2 hover:bg-gray-50" to="/assess" onClick={() => setSkillsOpen(false)} role="menuitem">Bewerten</Link>
-                <Link className="block px-4 py-2 hover:bg-gray-50" to="/matrix" onClick={() => setSkillsOpen(false)} role="menuitem">Matrix</Link>
-              </div>
-            )}
-          </div>
-          {/* Kurzprofil link */}
-          <NavLink
-            to="/kurzprofil"
-            className={({ isActive }) =>
-              `px-3 py-2 rounded-md border-b-2 transition ${isActive ? 'text-white bg-white/10 border-white/90' : 'text-off_white/90 hover:text-white hover:bg-white/10 border-transparent hover:border-white/60'}`
-            }
-          >
-            Kurzprofil
-          </NavLink>
+              Kurzprofil
+            </NavLink>
+          )}
 
-          {/* Referenz Projekte link */}
-          <NavLink
-            to="/referenz-projekte"
-            className={({ isActive }) =>
-              `px-3 py-2 rounded-md border-b-2 transition ${isActive ? 'text-white bg-white/10 border-white/90' : 'text-off_white/90 hover:text-white hover:bg-white/10 border-transparent hover:border-white/60'}`
-            }
-          >
-            Referenz Projekte
-          </NavLink>
-
-          {/* Strategic Goals link */}
-          <NavLink
-            to="/strategic-goals"
-            className={({ isActive }) =>
-              `px-3 py-2 rounded-md border-b-2 transition ${isActive ? 'text-white bg-white/10 border-white/90' : 'text-off_white/90 hover:text-white hover:bg-white/10 border-transparent hover:border-white/60'}`
-            }
-          >
-            Strategische Ziele
-          </NavLink>
-          {/* Capacity Dropdown */}
-          <div className="relative" ref={capacityRef}>
-            <button
-              className={`px-3 py-2 rounded-md text-off_white/90 hover:text-white hover:bg-white/10 inline-flex items-center gap-1 border-b-2 ${capacityOpen ? 'border-white/90 text-white' : 'border-transparent hover:border-white/60'} transition`}
-              onClick={() => setCapacityOpen((o) => !o)}
-              aria-haspopup="menu"
-              aria-expanded={capacityOpen}
+          {/* Referenz Projekte link - only show if reference-projects module is accessible */}
+          {hasModuleAccess('reference-projects') && (
+            <NavLink
+              to="/referenz-projekte"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded-md border-b-2 transition ${isActive ? 'text-white bg-white/10 border-white/90' : 'text-off_white/90 hover:text-white hover:bg-white/10 border-transparent hover:border-white/60'}`
+              }
             >
-              <span>Kapazität</span>
-              <svg className={`h-3 w-3 motion-safe:transition-transform ${capacityOpen ? 'rotate-180' : ''} motion-reduce:transform-none`} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.23 7.21a.75.75 0 011.06.02L10 10.586l3.71-3.355a.75.75 0 111.02 1.1l-4.22 3.815a.75.75 0 01-1.02 0L5.21 8.33a.75.75 0 01.02-1.12z"/></svg>
-            </button>
-            {capacityOpen && (
-              <div className="absolute right-0 mt-2 w-56 bg-white text-primary_dark rounded-lg shadow-xl ring-1 ring-black/5 z-50 py-2" role="menu">
-                <Link className="block px-4 py-2 hover:bg-gray-50" to="/my-capacity" onClick={() => setCapacityOpen(false)} role="menuitem">Kapazität</Link>
-                <Link className="block px-4 py-2 hover:bg-gray-50" to="/capacities-overview" onClick={() => setCapacityOpen(false)} role="menuitem">Übersicht</Link>
-              </div>
-            )}
-          </div>
+              Referenz Projekte
+            </NavLink>
+          )}
+
+          {/* Strategic Goals link - only show if strategic-goals module is accessible */}
+          {hasModuleAccess('strategic-goals') && (
+            <NavLink
+              to="/strategic-goals"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded-md border-b-2 transition ${isActive ? 'text-white bg-white/10 border-white/90' : 'text-off_white/90 hover:text-white hover:bg-white/10 border-transparent hover:border-white/60'}`
+              }
+            >
+              Strategische Ziele
+            </NavLink>
+          )}
+          {/* Capacity Dropdown - only show if capacities module is accessible */}
+          {hasModuleAccess('capacities') && (
+            <div className="relative" ref={capacityRef}>
+              <button
+                className={`px-3 py-2 rounded-md text-off_white/90 hover:text-white hover:bg-white/10 inline-flex items-center gap-1 border-b-2 ${capacityOpen ? 'border-white/90 text-white' : 'border-transparent hover:border-white/60'} transition`}
+                onClick={() => setCapacityOpen((o) => !o)}
+                aria-haspopup="menu"
+                aria-expanded={capacityOpen}
+              >
+                <span>Kapazität</span>
+                <svg className={`h-3 w-3 motion-safe:transition-transform ${capacityOpen ? 'rotate-180' : ''} motion-reduce:transform-none`} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.23 7.21a.75.75 0 011.06.02L10 10.586l3.71-3.355a.75.75 0 111.02 1.1l-4.22 3.815a.75.75 0 01-1.02 0L5.21 8.33a.75.75 0 01.02-1.12z"/></svg>
+              </button>
+              {capacityOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-white text-primary_dark rounded-lg shadow-xl ring-1 ring-black/5 z-50 py-2" role="menu">
+                  <Link className="block px-4 py-2 hover:bg-gray-50" to="/my-capacity" onClick={() => setCapacityOpen(false)} role="menuitem">Kapazität</Link>
+                  <Link className="block px-4 py-2 hover:bg-gray-50" to="/capacities-overview" onClick={() => setCapacityOpen(false)} role="menuitem">Übersicht</Link>
+                </div>
+              )}
+            </div>
+          )}
         </>
       )}
       {isAuthenticated && (

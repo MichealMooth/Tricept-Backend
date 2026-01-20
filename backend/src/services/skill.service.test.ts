@@ -1,6 +1,6 @@
 import { describe, beforeAll, afterAll, beforeEach, it, expect } from '@jest/globals'
 import { prismaTest } from '@/tests/utils/prismaTestClient'
-import { migrateTestDb } from '@/tests/utils/testDb'
+import { resetTestDb } from '@/tests/utils/testDb'
 import {
   createCategory,
   updateCategory,
@@ -15,7 +15,8 @@ import {
 
 describe('skill.service', () => {
   beforeAll(() => {
-    migrateTestDb()
+    // Reset database to ensure clean state for skill tests
+    resetTestDb()
   })
   // kein Reset pro Test, um Windows-Dateisperren zu vermeiden
   afterAll(async () => prismaTest.$disconnect())

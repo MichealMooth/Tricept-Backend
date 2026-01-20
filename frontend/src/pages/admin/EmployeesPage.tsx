@@ -1,17 +1,31 @@
+/**
+ * EmployeesPage Component
+ *
+ * Admin page for managing employees.
+ * Task Group 4.3: Added Teams column with TeamBadges.
+ */
+
 import { useEffect, useMemo, useState } from 'react'
-import { Employee, listEmployees, createEmployee, updateEmployee, archiveEmployee } from '@/services/employee.service'
+import {
+  listEmployeesWithTeams,
+  createEmployee,
+  updateEmployee,
+  archiveEmployee,
+  type EmployeeWithTeams,
+} from '@/services/employee.service'
 import { EmployeeForm } from '@/components/admin/EmployeeForm'
+import { TeamBadges } from '@/components/TeamBadges'
 
 export default function EmployeesPage() {
-  const [items, setItems] = useState<Employee[]>([])
+  const [items, setItems] = useState<EmployeeWithTeams[]>([])
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(false)
-  const [modal, setModal] = useState<null | { mode: 'create' } | { mode: 'edit'; emp: Employee }>(null)
+  const [modal, setModal] = useState<null | { mode: 'create' } | { mode: 'edit'; emp: EmployeeWithTeams }>(null)
 
   const load = async () => {
     setLoading(true)
     try {
-      const data = await listEmployees(search || undefined)
+      const data = await listEmployeesWithTeams(search || undefined)
       setItems(data)
     } finally {
       setLoading(false)
@@ -49,7 +63,7 @@ export default function EmployeesPage() {
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Suchen…"
+            placeholder="Suchen..."
             className="border rounded px-3 py-2 w-64"
           />
         </div>
@@ -58,7 +72,7 @@ export default function EmployeesPage() {
         </button>
       </div>
 
-      {loading && <div className="text-sm text-gray-600">Lade…</div>}
+      {loading && <div className="text-sm text-gray-600">Lade...</div>}
 
       <div className="overflow-auto border rounded">
         <table className="w-full text-sm">
@@ -68,6 +82,7 @@ export default function EmployeesPage() {
               <th className="py-2 px-2">E-Mail</th>
               <th className="py-2 px-2">Rolle</th>
               <th className="py-2 px-2">Abteilung</th>
+              <th className="py-2 px-2">Teams</th>
               <th className="py-2 px-2">Status</th>
               <th className="py-2 px-2 w-48">Aktionen</th>
             </tr>
@@ -80,8 +95,11 @@ export default function EmployeesPage() {
                   {e.isAdmin && <span className="ml-2 text-[10px] px-2 py-0.5 rounded bg-indigo-100 text-indigo-700">ADMIN</span>}
                 </td>
                 <td className="py-2 px-2">{e.email}</td>
-                <td className="py-2 px-2">{e.role ?? '—'}</td>
+                <td className="py-2 px-2">{e.role ?? '-'}</td>
                 <td className="py-2 px-2">{e.department}</td>
+                <td className="py-2 px-2">
+                  <TeamBadges teams={e.teams || []} />
+                </td>
                 <td className="py-2 px-2">{e.isActive ? 'Aktiv' : 'Archiviert'}</td>
                 <td className="py-2 px-2 space-x-2">
                   <button className="text-blue-600" onClick={() => setModal({ mode: 'edit', emp: e })}>Bearbeiten</button>
@@ -111,6 +129,7 @@ export default function EmployeesPage() {
       {modal?.mode === 'edit' && (
         <EmployeeForm
           mode="edit"
+          employeeId={modal.emp.id}
           initial={{
             firstName: modal.emp.firstName,
             lastName: modal.emp.lastName,
@@ -126,6 +145,7 @@ export default function EmployeesPage() {
           onUpdate={async (d) => {
             await onUpdate(modal.emp.id, d)
           }}
+          onTeamsChange={() => load()}
         />
       )}
     </div>

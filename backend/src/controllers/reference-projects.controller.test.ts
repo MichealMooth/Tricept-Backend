@@ -1,5 +1,6 @@
 import request from 'supertest'
 import http from 'http'
+import { execSync } from 'child_process'
 import app from '@/app'
 
 // Helper: set test env and isolated data dir
@@ -8,10 +9,18 @@ process.env.REFPROJ_DATA_DIR = './var-test-ctrl'
 describe('reference-projects.controller importExcel', () => {
   let server: http.Server
 
-  beforeAll((done) => {
-    // Start app on random free port
-    server = app.listen(0, () => done())
-  })
+  beforeAll(async () => {
+    // Seed the database to ensure Role and Topic lookup tables exist
+    // Pass environment variables to the child process
+    execSync('npx prisma db seed', {
+      stdio: 'pipe',
+      env: { ...process.env, DATABASE_URL: 'file:./test.db' },
+    })
+
+    await new Promise<void>((resolve) => {
+      server = app.listen(0, () => resolve())
+    })
+  }, 30000)
 
   afterAll((done) => {
     server.close(() => done())
@@ -58,6 +67,6 @@ describe('reference-projects.controller importExcel', () => {
     expect(errRow.errors).toBeDefined()
     const messages = errRow.errors.map((e: any) => e.message)
     expect(messages.some((m: string) => m.includes('Pflichtfeld'))).toBeTruthy()
-    expect(messages.some((m: string) => m.includes('Ungültiger Wert'))).toBeTruthy()
+    expect(messages.some((m: string) => m.includes('Ungueltiger Wert'))).toBeTruthy()
   })
 })

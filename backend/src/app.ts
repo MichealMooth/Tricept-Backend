@@ -18,6 +18,9 @@ import strategicGoalsRouter from '@/routes/strategic-goals';
 import dbAdminRouter from '@/routes/db-admin';
 import userProfileRouter from '@/routes/user-profile';
 import referenceProjectsRouter from '@/routes/reference-projects';
+import teamGroupsRouter from '@/routes/team-groups';
+import adminModuleConfigRouter from '@/routes/admin-module-config';
+import effectiveModulesRouter from '@/routes/effective-modules';
 // Frontend-only Excel export is enabled; disable backend export route to avoid xlsx runtime dependency
 // import exportRouter from '@/routes/export';
 
@@ -73,6 +76,9 @@ app.use('/api', employeesRouter);
 app.use('/api', capacitiesRouter);
 app.use('/api', strategicGoalsRouter);
 app.use('/api', referenceProjectsRouter);
+app.use('/api', teamGroupsRouter);
+app.use('/api', adminModuleConfigRouter);
+app.use('/api', effectiveModulesRouter);
 app.use('/api', dbAdminRouter);
 app.use('/api', userProfileRouter);
 // app.use('/api', exportRouter);
